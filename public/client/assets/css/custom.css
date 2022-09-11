@@ -1,0 +1,118 @@
+/*
+Custom Css
+*/
+* {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+.logInOut{
+    margin-left: 40px;
+}
+.logInOut a {
+    text-decoration: none;
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+.text-brown {
+    color: #A0522D;
+}
+
+.btn--login {
+    opacity: 0.8;
+}
+
+.btn--login:hover {
+    opacity: 1;
+}
+
+.btn--shop {
+    text-decoration: unset;
+    padding: 8px 16px;
+    opacity: 0.8;
+}
+.btn--shop:hover {
+    opacity: 1;
+}
+
+.shadow {
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.modal-content {
+    border-radius: 30px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.fs-1 {
+    font-size: 3rem!important;
+} 
+
+.card {
+    border: none;
+    background: none;
+}
+
+.mb-5 {
+    margin-top: 2.5rem!important;
+}
+
+.quantity {
+    width: 2.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.btn--check {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #69bb7e;
+}
+
+/* body {
+    background-color: #eee;
+    
+} */
+
+.bdge {
+  height: 21px;
+  background-color: orange;
+  color: #fff;
+  font-size: 11px;
+  padding: 8px;
+  border-radius: 4px;
+  line-height: 3px;
+}
+
+.comments {
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  margin-top: 3px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hit-voting:hover {
+  color: blue;
+}
+
+.hit-voting {
+  cursor: pointer;
+}
