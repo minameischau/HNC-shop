@@ -57,7 +57,9 @@ https://templatemo.com/tm-559-zay-shop
                             $customer_name = session()->get('customer_name');
                             if ($customer_name != NULL) {
                         ?>
-                        🟢 <?php echo $customer_name?>
+                        🟢 <a href="{{ URL::to('/profile')}}" class="text-white">
+                            <?php echo $customer_name?>
+                        </a>
                         <?php
                             }
                         ?>
@@ -94,13 +96,16 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link" href="{{ URL::to('/trang-chu')}}">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::to('/about')}}">Về chúng tôi</a>
+                            <a class="nav-link" href="{{ URL::to('/tat-ca-san-pham')}}">Sản phẩm</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::to('/trang-chu')}}">Sản phẩm</a>
-                        </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" href="{{ URL::to('/don-hang')}}">Đơn hàng</a>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('/contact')}}">Liên hệ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ URL::to('/about')}}">Giới thiệu</a>
                         </li>
                     </ul>
                 </div>
@@ -129,11 +134,32 @@ https://templatemo.com/tm-559-zay-shop
                                 <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                                 <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
                                     <?php
-                                        $qty = Cart::count();
-                                        echo $qty;
+                                        $qty = Cart::content();
+                                        $cnt=0;
+                                        foreach ($qty as $key => $value) {
+                                            $cnt++;
+                                        }
+                                        echo $cnt;
                                     ?>
                                 </span >
                             </a>
+                    <?php
+                        }
+                    ?>
+
+                    <?php
+                        $customer_id = session()->get('customer_id');
+                        if ($customer_id != NULL) {
+                    ?>
+                        <a class="nav-icon position-relative text-decoration-none" href="{{ URL::to('/don-hang')}}">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                            {{-- <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"> --}}
+                                <?php
+                                    // $qty = Cart::count();
+                                    // echo $qty;
+                                ?>
+                            {{-- </span > --}}
+                        </a>
                     <?php
                         }
                     ?>
@@ -235,9 +261,9 @@ https://templatemo.com/tm-559-zay-shop
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Thông Tin</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li><a class="text-decoration-none" href="#">Trang chủ</a></li>
-                        <li><a class="text-decoration-none" href="#">Về chúng tôi</a></li>
                         <li><a class="text-decoration-none" href="#">Sản phẩm</a></li>
                         <li><a class="text-decoration-none" href="#">Liên hệ</a></li>
+                        <li><a class="text-decoration-none" href="#">Giới thiệu</a></li>
                     </ul>
                 </div>
 
@@ -247,7 +273,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-12 mb-3">
                     <div class="w-100 my-3 border-top border-light"></div>
                 </div>
-                <div class="col-auto me-auto">
+                <div class="col-auto m-auto ">
                     <ul class="list-inline text-left footer-icons">
                         <li class="list-inline-item border border-light rounded-circle text-center">
                             <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
@@ -263,13 +289,13 @@ https://templatemo.com/tm-559-zay-shop
                         </li>
                     </ul>
                 </div>
-                <div class="col-auto">
+                {{-- <div class="col-auto">
                     <label class="sr-only" for="subscribeEmail">Email address</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
                         <div class="input-group-text btn-success text-light">Subscribe</div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
 
@@ -277,11 +303,14 @@ https://templatemo.com/tm-559-zay-shop
     <!-- End Footer -->
 
     <!-- Start Script -->
+
     <script src="{{ URL::asset('./client/assets/js/jquery-1.11.0.min.js')}}"></script>
     <script src="{{ URL::asset('./client/assets/js/jquery-migrate-1.2.1.min.js')}}"></script>
     <script src="{{ URL::asset('./client/assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ URL::asset('./client/assets/js/templatemo.js')}}"></script>
     <script src="{{ URL::asset('./client/assets/js/custom.js')}}"></script>
+    {{-- <script src="{{ URL::asset('./client/assets/js/theme.js')}}"></script> --}}
+    <script src="{{ URL::asset('./client/assets/js/theme.min.js')}}"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
     </style>
@@ -323,13 +352,53 @@ https://templatemo.com/tm-559-zay-shop
 </script>
     <!-- End Script -->
 
-    {{-- <script type="text/javascript">
-        $(document).ready(function() {
+    <script type="text/javascript">
+        $(document).ready(function(){
             $('.add-to-cart').click(function(){
-                swal("Herer");
+
+                var id = $(this).data('id_product');
+                // alert(id);
+                var cart_product_id = $('.cart_product_id_' + id).val();
+                var cart_product_name = $('.cart_product_name_' + id).val();
+                var cart_product_image = $('.cart_product_image_' + id).val();
+                var cart_product_quantity = $('.cart_product_quantity_' + id).val();
+                var cart_product_price = $('.cart_product_price_' + id).val();
+                var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+                    alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+                }else{
+
+                    $.ajax({
+                        url: '{{url('/add-cart-ajax')}}',
+                        method: 'POST',
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+                        success:function(){
+
+                            swal({
+                                    title: "Đã thêm sản phẩm vào giỏ hàng",
+                                    text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Xem tiếp",
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Đi đến giỏ hàng",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    window.location.href = "{{url('/gio-hang')}}";
+                                });
+
+                        }
+
+                    });
+                }
+
+                
             });
         });
-    </script> --}}
+    </script>
+
+
     <script>
         $(function(){
             var txt = $('p.card-text').html();

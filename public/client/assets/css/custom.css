@@ -2,7 +2,7 @@
 Custom Css
 */
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter',sans-serif;
     font-weight: 500;
 }
 .logInOut{
@@ -115,4 +115,180 @@ Custom Css
 
 .hit-voting {
   cursor: pointer;
+}
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    /* background: #a1c4fd; */
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* background: -webkit-linear-gradient(to right, rgba(161, 196, 253, 1), rgba(194, 233, 251, 1)); */
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* background: linear-gradient(to right, rgba(161, 196, 253, 1), rgba(194, 233, 251, 1)) */
+}
+    
+#progressbar-1 {
+    color: #455A64;
+}
+
+#progressbar-1 li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+}
+
+#progressbar-1 #step1:before {
+content: "1";
+color: #fff;
+width: 29px;
+margin-left: 22px;
+padding-left: 11px;
+}
+
+#progressbar-1 #step2:before {
+content: "2";
+color: #fff;
+width: 29px;
+}
+
+#progressbar-1 #step3:before {
+content: "3";
+color: #fff;
+width: 29px;
+margin-right: 22px;
+text-align: center;
+}
+
+#progressbar-1 li:before {
+line-height: 29px;
+display: block;
+font-size: 12px;
+background: #455A64;
+border-radius: 50%;
+margin: auto;
+}
+
+#progressbar-1 li:after {
+content: '';
+width: 121%;
+height: 2px;
+background: #455A64;
+position: absolute;
+left: 0%;
+right: 0%;
+top: 15px;
+z-index: -1;
+}
+
+#progressbar-1 li:nth-child(2):after {
+left: 50%
+}
+
+#progressbar-1 li:nth-child(1):after {
+left: 25%;
+width: 121%
+}
+
+#progressbar-1 li:nth-child(3):after {
+left: 25%;
+width: 50%;
+}
+
+#progressbar-1 li.active:before,
+#progressbar-1 li.active:after {
+background: #1266f1;
+}
+
+.card-stepper {
+z-index: 0
+}
+
+#id_work_days input[type="radio"] {
+    display: none;
+}
+
+#id_work_days span {
+    display: inline-block;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #000;
+}
+
+#id_work_days span:hover {
+    cursor: pointer;
+}
+
+#id_work_days input[type="radio"]:checked + span {
+    background-color: #001e2b;
+    color: #fff;
+}
+
+.checkout--input{
+    border: 1px solid #e5e5e5;
+    border-radius: 10rem;
+}
+
+.checkbox-wrap {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+}
+  
+.checkbox-wrap input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0; 
+}
+  
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0; 
+}
+  
+.checkmark:after {
+    content: "\f1db";
+    font-family: "FontAwesome";
+    position: absolute;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    margin-top: -4px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s; 
+}
+@media (prefers-reduced-motion: reduce) {
+    .checkmark:after {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none; } 
+}
+  
+.checkbox-wrap input:checked ~ .checkmark:after {
+    display: block;
+    content: "\f058";
+    font-family: "FontAwesome";
+    color: #001e2b;
+    -webkit-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    transform: rotate(-360deg); 
+}
+
+.product-title {
+    font-weight: 400 !important;
+    font-size: 1rem !important;
 }

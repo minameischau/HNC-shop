@@ -18,92 +18,125 @@
             <div class="card-body py-2">
               <!-- Single item -->
               @foreach ($content as $v_content)
-              
-              
-                <div class="row">
-                  <div class="col-lg-2 col-md-12 mb-4 mb-lg-0">
-                    <!-- Image -->
-                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                      <img src="{{ URL::to('./upload/product/'.$v_content->options->image)}}"
-                        class="w-75" alt="Blue Jeans Jacket" />
-                      <a href="#!">
-                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                      </a>
-                    </div>
-                    <!-- Image -->
-                  </div>
-    
-                  <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-                    <!-- Data -->
-                    <p><strong>{{$v_content->name}}</strong></p>
-                    <p>Blue, M</p>
-                    
-                    <!-- Data -->
-                  </div>
-    
-                  <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
-                    <!-- Price -->
-                    <p class="text-start text-md-center">
-                      <strong>{{number_format($v_content->price, 0, ',', ' ')}}</strong>
-                    </p>
-                    <!-- Price -->
-                  </div>
-
-                  <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
                     <form action="{{ URL::to('/update-cart-quantity')}}" method="POST">
-                      {{ csrf_field() }}
-                    <!-- Quantity -->
-                    <div class="d-flex mb-4 justify-content-center" style="max-width: 300px">
-                      {{-- <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li> --}}
+              
+              
+                      <div class="row">
+                        <div class="col-lg-2 col-md-12 mb-4 mb-lg-0">
+                          <!-- Image -->
+                          <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                            <img src="{{ URL::to('./upload/product/'.$v_content->options->image)}}"
+                              class="w-75" alt="Blue Jeans Jacket" />
+                            <a href="#!">
+                              <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                            </a>
+                          </div>
+                          <!-- Image -->
+                        </div>
+          
+                        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                          <!-- Data -->
+                          <p><strong>{{$v_content->name}}</strong></p>
+                          <p>{{$v_content->options->size}}</p>
+                          
 
-                      <li class="list-inline-item">
-                        <input type="number" class="quantity" name="cart_quantity" value="{{$v_content->qty}}">
-                        <button type="submit" value="" name="update_qty" class=" btn--check">
-                          <i class="fa-solid fa-check ml-1"></i>
-                        </button>
-                        {{-- <span class="badge bg-secondary" name="cart_quantity" id="var-value">{{$v_content->qty}}</span> --}}
-                      </li>
-                      {{-- <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li> --}}
-                    </div>
-                    <input type="hidden" value="{{$v_content->rowId}}" name="rowId_cart">
-                        
-                    {{-- <input type="submit" value="cap nhat" name="update_qty"> --}}
-                        
-                        
-                    </form> 
-                    <!-- Quantity -->
-                  </div>
+                          <!-- Data -->
+                        </div>
+          
+                        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
+                          <!-- Price -->
+                          <p class="text-start text-md-center">
+                            <strong>{{number_format($v_content->price, 0, ',', ' ')}}</strong>
+                          </p>
+                          <!-- Price -->
+                        </div>
 
-                  <div class="col-lg-2 col-md-12 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
-                    <!-- Price -->
-                    <p class="text-start text-md-center">
-                      <strong>
-                        <?php
-                          $subtotal = $v_content->price * $v_content->qty;
-                          echo number_format($subtotal, 0, ',', ' ');
-                        ?>
-                      </strong>
-                    </p>
-                    <!-- Price -->
-                  </div>
-                  <div class="col-lg-1 col-md-12 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
-                    {{-- <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
-                      title="Remove item"> --}}
-                      {{-- <div class=""> --}}
-                        <a href="{{ URL::to('/delete-to-cart/'.$v_content->rowId)}}" class="cart-quantity-delete">
-                          <i class="fas fa-trash mr-1 mb-4 text-danger"></i>
-                        </a>
-                        {{-- <input type="hidden" name="rowId_cart" value="{{$v_content->rowId}}"> --}}
+                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
+                            {{ csrf_field() }}
+                          <!-- Quantity -->
+                          <div class="d-flex mb-4 justify-content-center" style="max-width: 300px">
+                            {{-- <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li> --}}
 
-                      {{-- </div> --}}
-                    {{-- </button> --}}
-                  </div>
-                </div> 
+                            <li class="list-inline-item">
+                              {{-- <input type="number" class="quantity" name="cart_quantity" value="{{$v_content->qty}}">
+                              <button type="submit" value="" name="update_qty" class=" btn--check">
+                                <i class="fa-solid fa-check ml-1"></i> 
+                              </button> --}}
+
+                              <div class="input-group input-spinner  ">
+                                <?php
+                                    $name = 'qty'.$v_content->id;
+                                ?>
+                                {{-- <a href="{{ URL::to('/increaseQty/'.$v_content->rowId)}}"> --}}
+                                  <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="{{$name}}">
+                                {{-- </a> --}}
+                                <input type="number" step="1" max="10" value="{{$v_content->qty}}" name="{{$name}}" class="quantity-field form-control-sm form-input">
+                                <input type="button" value="+" class="button-plus btn btn-sm " data-field="{{$name}}">
+                            </div>
+
+                              {{-- <span class="badge bg-secondary" name="cart_quantity" id="var-value">{{$v_content->qty}}</span> --}}
+                            </li>
+                            {{-- <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li> --}}
+                          </div>
+                          <input type="hidden" value="{{$v_content->rowId}}" name="rowId_cart">
+                              
+                          {{-- <input type="submit" value="cap nhat" name="update_qty"> --}}
+                              
+                          <!-- Quantity -->
+                        </div>
+
+                        <div class="col-lg-2 col-md-12 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
+                          <!-- Price -->
+                          <p class="text-start text-md-center">
+                            <strong>
+                              <?php
+                                $subtotal = $v_content->price * $v_content->qty;
+                                echo number_format($subtotal, 0, ',', ' ');
+                              ?>
+                            </strong>
+                          </p>
+                          <!-- Price -->
+                        </div>
+                        <div class="col-lg-1 col-md-12 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
+                          {{-- <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                            title="Remove item"> --}}
+                            {{-- <div class=""> --}}
+                              <a href="{{ URL::to('/delete-to-cart/'.$v_content->rowId)}}" class="cart-quantity-delete">
+                                <i class="fas fa-trash mr-1 mb-4 text-danger"></i>
+                              </a>
+
+                              {{-- <input type="hidden" name="rowId_cart" value="{{$v_content->rowId}}"> --}}
+
+                            {{-- </div> --}}
+                          {{-- </button> --}}
+                        </div>
+                      </div> 
+                      <hr>
+
+                      <script>
+                        // function increase() {
+                        //   $('#increaseQty').href="facebook.com";
+                        //   // alert('hi');
+                        // }
+                        // function decrease() {
+                        //   $('#decreaseQty').href="{{ URL::to('/decreaseQty/'.$v_content->rowId)}}";
+                        // }
+                      </script>
+
               @endforeach
+                      <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ URL::to('/tat-ca-san-pham')}}" class="btn btn-dark" style="border-radius: 10rem; background-color: #1ad144; border: 1px solid #1ad144">Tiếp tục mua sắm</a>
+                        <button type="submit" value="" name="update_qty" class="btn btn-dark"  
+                        style="border-radius: 10rem; background-color: #ffc107; border: 1px solid #ffc107"">
+                          Cập nhật
+                        </button>
+                      </div>
+                    </form>   
+
               
 
             </div>
-                  <hr class="m-0">
+                  {{-- <hr class="m-0"> --}}
         
           </div>
 
@@ -111,7 +144,11 @@
           <div class="card mb-4">
             <div class="card-body">
               <p><strong>Dự kiến nhận hàng</strong></p>
-              <p class="mb-0">12.10.2020 - 14.10.2020</p>
+              <p class="mb-0">
+                <?php echo date('d.m.y',strtotime("+5 day"))?>
+                -
+                <?php echo date('d.m.y',strtotime("+7 day"))?>
+              </p>
             </div>
           </div>
 
@@ -122,9 +159,9 @@
               <img class="me-2" width="45px"
                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
                 alt="Visa" />
-              <img class="me-2" width="45px"
+              {{-- <img class="me-2" width="45px"
                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-                alt="American Express" />
+                alt="American Express" /> --}}
               <img class="me-2" width="45px"
                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
                 alt="Mastercard" />
@@ -136,7 +173,7 @@
         <div class="col-md-4">
           <div class="card mb-4">
             <div class="card-header py-3">
-              <h5 class="mb-0">Tổng cộng</h5>
+              <h5 class="mb-0 text-center">Tổng cộng</h5>
             </div>
             <div class="card-body">
               <ul class="list-group list-group-flush">
@@ -147,14 +184,13 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                   Shipping
-                  <span>Gratis</span>
+                  <span>Miễn phí</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                   Thuế
                   <span>{{Cart::tax()}}</span>
                 </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                   <div>
                     <strong>Tổng cộng</strong>
                     <strong>
@@ -173,7 +209,8 @@
         </div>
       </div>
     </div>
-  </section>
+</section>
+
 
 
 @endsection

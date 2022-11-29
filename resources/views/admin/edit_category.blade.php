@@ -1,6 +1,6 @@
 @extends('admin-layout')
 @section('admin-content')
-    <h1>Cap nhat danh mục</h1>
+    <h1>Cập nhật danh mục</h1>
 
     <?php
         $message = Session::get('message');
@@ -25,7 +25,9 @@
             <textarea name="category_product_desc" class="form-control" 
                 style="resize: none" id="exampleFormControlTextarea1" rows="3">{{$edit_value->category_desc}}</textarea>
         </div>
-        <button name="update_category_product" type="submit">Đồng ý</button>
+        <div class="row justify-content-center">
+            <button name="update_category_product" class="btn-accept" type="submit">Đồng ý</button>
+        </div>
     </form>
     @endforeach
 @endsection

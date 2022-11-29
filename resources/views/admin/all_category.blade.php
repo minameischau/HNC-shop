@@ -1,6 +1,6 @@
 @extends('admin-layout')
 @section('admin-content')
-    <h1>Liệt kê danh mục</h1>
+    {{-- <h1>Liệt kê danh mục</h1> --}}
     <!-- DataTales Example -->
 
     <?php
@@ -13,8 +13,9 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Liệt kê danh mục</h6>
+            <h5 class="m-0 font-weight-bolder text-primary text-center">Liệt kê danh mục</h5>
         </div>
+        
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -22,12 +23,12 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên danh mục</th>
-                            <th>Ngày thêm</th>
+                            <th>Hình ảnh</th>
                             <th>Hiển thị</th>
                             <th>Tùy chọn</th>
                         </tr>
                     </thead>
-                    <tfoot>
+                    {{-- <tfoot>
                         <tr>
                             <th>ID</th>
                             <th>Tên danh mục</th>
@@ -35,31 +36,32 @@
                             <th>Hiển thị</th>
                             <th>Tùy chọn</th>
                         </tr>
-                    </tfoot>
+                    </tfoot> --}}
                     <tbody>
 
                         @foreach ($all_category_product as $item => $cate_pro)
                             <tr>
                                 <td>{{$cate_pro->category_id}}</td>
                                 <td>{{$cate_pro->category_name}}</td>
-                                <td>Edinburgh</td>
-                                <td>
+                                <td><img src="./upload/cate/{{$cate_pro->category_image}}" height="100"
+                                    width="100" alt=""></td>
+                                <td class="text-center">
                                     <?php
                                         if($cate_pro->category_status) {
                                     ?>
-                                            <a href="{{ URL::to('/unactive-category-product/'.$cate_pro->category_id)}}"><i class="fa-sharp fa-solid fa-circle-check text-success"></i></i></a>
+                                            <a href="{{ URL::to('/unactive-category-product/'.$cate_pro->category_id)}}"><i style="font-size: 1.75rem" class="fa-sharp fa-solid fa-circle-check text-success"></i></i></a>
                                     <?php
                                         }
                                         else {
                                     ?>    
-                                            <a href="{{ URL::to('/active-category-product/'.$cate_pro->category_id)}}"><i class="fa-sharp fa-solid fa-circle-xmark text-danger"></i></a>
+                                            <a href="{{ URL::to('/active-category-product/'.$cate_pro->category_id)}}"><i style="font-size: 1.75rem" class="fa-sharp fa-solid fa-circle-xmark text-danger"></i></a>
                                     <?php
                                         }
                                     ?>
                                 </td>
                                 <td>
                                     <span>
-                                        <a href="{{ URL::to('/edit_category_product/'.$cate_pro->category_id)}}" class="btn btn-primary btn-circle btn-sm">
+                                        <a href="{{ URL::to('/edit_category_product/'.$cate_pro->category_id)}}" class="btn btn-primary btn-circle btn-sm mx-1">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                         <a onclick="return confirm('Are you sure?')"
